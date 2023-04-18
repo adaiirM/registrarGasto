@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
@@ -25,7 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class GastoFragment extends Fragment implements IGastoActivityView,SearchView.OnQueryTextListener{
+public class GastoFragment extends Fragment implements IGastoActivityView {
     private RecyclerView recyclerView;
     private TextView textView;
     private FloatingActionButton actionButtonAgregar;
@@ -56,7 +57,18 @@ public class GastoFragment extends Fragment implements IGastoActivityView,Search
                 startActivity(intent);
             }
         });
-        buscarGasto.setOnQueryTextListener(this);
+        buscarGasto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterHome.getFilter().filter(newText);
+                return false;
+            }
+        });
         return rootView;
     }
 
@@ -68,16 +80,4 @@ public class GastoFragment extends Fragment implements IGastoActivityView,Search
 
 
 
-
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        adapterHome.filtrado(newText);
-        return false;
-    }
 }
