@@ -30,8 +30,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#17A589"
-            >
+            android:background="#17A589">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -39,77 +38,61 @@
                 android:layout_height="71dp"
                 android:src="@drawable/ic_baseline_sticky_note_2_24"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.002"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/textNombrePago"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pago: "
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.212"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.048" />
+                android:layout_marginTop="5dp"
+                android:text="@string/pagoCardView"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textMostarNombrePagoAd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.044"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toEndOf="@+id/textNombrePago"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.048" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total: "
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.688"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.048" />
+                android:layout_marginStart="170dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/totalCardView"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/mostrarTotalAd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toEndOf="@+id/textTotal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.048" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textFechaLimite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha Limite: "
+                android:layout_marginBottom="5dp"
+                android:text="@string/fechaCardView"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.243"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.975" />
+                app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
             <TextView
                 android:id="@+id/textmostarFechaLimiteAd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.065"
-                app:layout_constraintStart_toEndOf="@+id/textFechaLimite"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.975" />
+                app:layout_constraintStart_toEndOf="@+id/textFechaLimite" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

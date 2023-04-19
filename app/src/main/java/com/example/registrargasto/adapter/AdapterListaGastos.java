@@ -55,7 +55,7 @@ public class AdapterListaGastos extends RecyclerView.Adapter<AdapterListaGastos.
     @NonNull
     @Override
     public ViewHolderDatosHome onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_list_gastos,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_gastos,null,false);
         return  new ViewHolderDatosHome(view);
     }
 

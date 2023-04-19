@@ -2,4 +2,20 @@
     <string name="app_name">registrarGasto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tituloAdeudos">Lista de adeudos</string>
+    <string name="descripcionAdeudo">Desliza hacia la izquierda para marcar como pagado</string>
+    <string name="tituloAdeudo">Tus adeudos</string>
+    <string name="tituloGastos">Tus gastos</string>
+    <string name="pagoCardView">Pago:</string>
+    <string name="fechaCardView">Fecha Limite:</string>
+    <string name="totalCardView">Total:</string>
+    <string name="listaGastos">Lista de gastos</string>
+    <string name="nombreAdeudo">Nombre del adeudo</string>
+    <string name="precio">Precio</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="total">Total</string>
+    <string name="lugarPago">Lugar de pago</string>
+    <string name="fechaLimite">Fecha limite del adeudo</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
 </resources>
