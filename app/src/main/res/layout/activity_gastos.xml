@@ -35,6 +35,13 @@
             android:focusable="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Tipo de pago:" />
     <Spinner
         android:id="@+id/spinner_tipo_gasto"
         android:layout_width="match_parent"
@@ -43,7 +50,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:textSize="24dp"
-        android:minHeight="70dp"/>
+        android:minHeight="70dp"
+        />
 
 
     <com.google.android.material.textfield.TextInputLayout
