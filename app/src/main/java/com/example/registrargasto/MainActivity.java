@@ -34,12 +34,14 @@ public class MainActivity extends FragmentActivity {
         mViewPager2=findViewById(R.id.pager);
         mTabLayout =  findViewById(R.id.tab_layout);
 
+
         mPagerAdapter = new AdapterFragment(getSupportFragmentManager(),getLifecycle(),loadFragment());
         mViewPager2.setAdapter(mPagerAdapter);
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(mTabLayout,mViewPager2,new TabLayoutMediator.TabConfigurationStrategy(){
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+
                 switch(position){
                     case 0:
                         tab.setText("Inicio");

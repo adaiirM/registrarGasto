@@ -59,11 +59,6 @@ public class GastoFragment extends Fragment implements IGastoActivityView, IPres
         adapterHome = new AdapterListaGastos(manejoListas.ordenarLista(gastoDTO));
         recyclerView.setAdapter(adapterHome);
 
-
-
-
-
-
         buscarGasto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -105,20 +105,18 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
     }
 
     public void cambiarPres(){
-        if (consultarPresupuesto().getCantidad() != 0) {
-            buttonCam.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
+        buttonCam.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if (consultarPresupuesto().getCantidad() != 0){
                          Intent intent;
                          intent = new Intent(getContext(), PresupuestoActivity.class);
                          startActivity(intent);
-                     }
+                     }else
+                         Toast.makeText(getContext(), "Establesca un presupuesto primero", Toast.LENGTH_SHORT).show();
                  }
-            );
-        }else {
-            Toast.makeText(getContext(), "Establesca un presupuesto primero", Toast.LENGTH_SHORT).show();
-        }
-
+             }
+        );
     }
 
     @Override
