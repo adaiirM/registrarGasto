@@ -83,14 +83,9 @@ public class GastoFragment extends Fragment implements IGastoActivityView, IPres
                     Confirmacion_Dialog confirmacion_dialog=new Confirmacion_Dialog();
                     confirmacion_dialog.show(getActivity().getSupportFragmentManager(),"Seleccione Usuario");
                 }else{
-                    actionButtonAgregar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent;
-                            intent = new Intent(getContext(), ActivityGastos.class);
-                            startActivity(intent);
-                        }
-                    });
+                    Intent intent;
+                    intent = new Intent(getContext(), ActivityGastos.class);
+                    startActivity(intent);
                 }
             }
         });

@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -63,13 +65,12 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         inicializarControles();
         lanzarDatePicker();
         adapterTipoGasto();
+        asignarTotal();
         clickGUardar();
 
-    }
-
-    private void guardarGasto(){
 
     }
+
 
     //Se inicializan los controles
     private void inicializarControles() {
@@ -202,6 +203,45 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
             }
         });
         newFragment.show(this.getSupportFragmentManager(), "datePicker");
+    }
+
+    private void verficarCampos(){
+        if(!mCantidad.getText().toString().equals("") && !mPrecio.getText().toString().equals("")){
+            mTotal.setText(""+Double.parseDouble(mPrecio.getText().toString()) *
+                    Double.parseDouble(mCantidad.getText().toString()));
+        }else {
+            mTotal.setText("0");
+        }
+    }
+
+    private void asignarTotal(){
+        mCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                verficarCampos();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mPrecio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                verficarCampos();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
 

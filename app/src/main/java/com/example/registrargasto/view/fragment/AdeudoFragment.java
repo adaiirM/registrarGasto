@@ -61,20 +61,14 @@ public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IPr
         actionButtonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(consultarPresupuesto().getCantidad()==0.0  || consultarPresupuesto().getCantidad()<0 || consultarPresupuesto()==null){
+                if(consultarPresupuesto().getCantidad() == 0.0  || consultarPresupuesto().getCantidad() < 0 || consultarPresupuesto()==null){
                     //Se llama a la clase Presupuesto Dialog para mostrar un cuadro de dialogo
                     Confirmacion_Dialog confirmacion_dialog=new Confirmacion_Dialog();
                     confirmacion_dialog.show(getActivity().getSupportFragmentManager(),"Seleccione Usuario");
-
                 }else{
-                    actionButtonAgregar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent;
-                            intent = new Intent(getContext(), AdeudoActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+                    Intent intent;
+                    intent = new Intent(getContext(), AdeudoActivity.class);
+                    startActivity(intent);
                 }
             }
         });
