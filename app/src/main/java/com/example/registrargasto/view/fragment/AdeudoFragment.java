@@ -15,23 +15,28 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.registrargasto.Complements.ManejoListas;
 import com.example.registrargasto.DAOS.DAOAdeudoImp;
 import com.example.registrargasto.DAOS.DAOGastoImp;
 import com.example.registrargasto.DAOS.DAOPresupuestoIm;
 import com.example.registrargasto.R;
 import com.example.registrargasto.adapter.AdapterListaAdeudos;
 import com.example.registrargasto.entidades.AdeudoDTO;
+import com.example.registrargasto.entidades.GastoDTO;
 import com.example.registrargasto.entidades.PresupuestoDTO;
+import com.example.registrargasto.view.fragment.DialogFragment.Confirmacion_Dialog;
 import com.example.registrargasto.view.activity.AdeudoActivity;
 import com.example.registrargasto.view.activity.IActivity.IPresupuestoactivityGasto;
 import com.example.registrargasto.view.fragment.IFragment.IAdeudoFragmentView;
 import com.example.registrargasto.view.fragment.IFragment.IGastoFragmentView;
+import com.example.registrargasto.view.fragment.IFragment.IPresupuestoFragmentView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IGastoFragmentView, IPresupuestoactivityGasto {
+public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IPresupuestoFragmentView, IGastoFragmentView, IPresupuestoactivityGasto {
     private RecyclerView recyclerView;
     private TextView textView;
     private FloatingActionButton actionButtonAgregar;
@@ -46,17 +51,25 @@ public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IGa
         recyclerView = rootView.findViewById(R.id.rviewGastos);
         actionButtonAgregar = rootView.findViewById(R.id.botAgregarAdeudo);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapterListaAdeudos = new AdapterListaAdeudos(consultarAdeudo());
+        ArrayList<AdeudoDTO> adeudoDTOS=consultarAdeudo();
+        Collections.sort(adeudoDTOS, (o1, o2) -> o1.getFechaLimite().compareTo(o2.getFechaLimite()));
+        ManejoListas<AdeudoDTO> manejoListas=new ManejoListas<>();
+        adapterListaAdeudos = new AdapterListaAdeudos( manejoListas.ordenarLista(adeudoDTOS));
         recyclerView.setAdapter(adapterListaAdeudos);
         relativeLayout = rootView.findViewById(R.id.linearLayoutAdeudos);
-
 
         actionButtonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(getContext(), AdeudoActivity.class);
-                startActivity(intent);
+                if(consultarPresupuesto().getCantidad() == 0.0  || consultarPresupuesto().getCantidad() < 0 || consultarPresupuesto()==null){
+                    //Se llama a la clase Presupuesto Dialog para mostrar un cuadro de dialogo
+                    Confirmacion_Dialog confirmacion_dialog=new Confirmacion_Dialog();
+                    confirmacion_dialog.show(getActivity().getSupportFragmentManager(),"Seleccione Usuario");
+                }else{
+                    Intent intent;
+                    intent = new Intent(getContext(), AdeudoActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -64,6 +77,7 @@ public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IGa
         helper.attachToRecyclerView(recyclerView);
         return rootView;
     }
+
 
     ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
@@ -80,7 +94,9 @@ public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IGa
             adeudos=consultarAdeudoDatos();
             adeudoDTO=adeudos.get(viewHolder.getAdapterPosition());
             registrarNuevoGastoAAdeudo(adeudoDTO);
-            if(consultarPresupuestoid().getCantidad()>0){
+
+
+            if(consultarPresupuestoid().getCantidad()>0.0){
                 restarPresupuesto(Double.valueOf(adeudoDTO.getTotal()));
             }
 
@@ -99,15 +115,7 @@ public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IGa
 
     };
 
-    /*
-    public long adeudoAgasto(AdeudoDTO adeudoDTO){
-        GastoDTO gastoDTO;
-        gastoDTO=new GastoDTO(adeudoDTO.getNombreadeudo(),adeudoDTO.getFechaLimite(),adeudoDTO.getLugar(),
-                adeudoDTO.getPrecio(),adeudoDTO.getCantidad(),adeudoDTO.getTotal(),adeudoDTO.getIdTipoGasto());
-        return registrarNuevoGastoAAdeudo(gastoDTO);
-    }
 
-     */
 
 
     @Override
@@ -153,18 +161,14 @@ public class AdeudoFragment extends Fragment implements IAdeudoFragmentView, IGa
         return iPresupuestoactivityGasto.consultarPresupuestoid();
     }
 
-
-
-
-
-    /*
     @Override
-    public void eliminarid(long id) {
-        IAdeudoFragmentView iAdeudoFragmentView=new DAOAdeudoImp(getContext());
-        iAdeudoFragmentView.eliminarid(id);
+    public PresupuestoDTO consultarPresupuestoDatos() {
+        return null;
     }
 
-     */
-
-
+    @Override
+    public PresupuestoDTO consultarPresupuesto() {
+        IPresupuestoFragmentView iPresupuestoFragmentView=new DAOPresupuestoIm(getContext());
+        return iPresupuestoFragmentView.consultarPresupuesto();
+    }
 }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,6 +53,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
         inicializarControles();
         lanzarDatePicker();
         adapterTipoGasto();
+        asignarTotal();
         clickGUardar();
         cancelar();
     }
@@ -211,6 +214,45 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
             }
         }
         return false;
+    }
+
+    private void asignarTotal(){
+        mCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                verficarCampos();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mPrecio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                verficarCampos();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void verficarCampos(){
+        if(!mCantidad.getText().toString().equals("") && !mPrecio.getText().toString().equals("")){
+            mTotal.setText(""+Double.parseDouble(mPrecio.getText().toString()) *
+                    Double.parseDouble(mCantidad.getText().toString()));
+        }else {
+            mTotal.setText("0");
+        }
     }
 
     @Override

@@ -23,13 +23,6 @@
         android:theme="@style/Theme.RegistrarGasto"
         tools:targetApi="31">
         <activity
-            android:name=".view.activity.ModPresupuestoActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".view.activity.PresupuestoActivity"
             android:exported="false">
             <meta-data

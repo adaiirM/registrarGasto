@@ -8,24 +8,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.registrargasto.Complements.ManejoListas;
 import com.example.registrargasto.DAOS.DAOGastoImp;
+import com.example.registrargasto.DAOS.DAOPresupuestoIm;
 import com.example.registrargasto.R;
 import com.example.registrargasto.adapter.AdapterListaGastos;
 import com.example.registrargasto.entidades.GastoDTO;
+import com.example.registrargasto.entidades.PresupuestoDTO;
+import com.example.registrargasto.view.fragment.DialogFragment.Confirmacion_Dialog;
 import com.example.registrargasto.view.activity.IActivity.IGastoActivityView;
 import com.example.registrargasto.view.activity.ActivityGastos;
+import com.example.registrargasto.view.fragment.IFragment.IPresupuestoFragmentView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
-public class GastoFragment extends Fragment implements IGastoActivityView,SearchView.OnQueryTextListener{
+public class GastoFragment extends Fragment implements IGastoActivityView, IPresupuestoFragmentView {
     private RecyclerView recyclerView;
     private TextView textView;
     private FloatingActionButton actionButtonAgregar;
@@ -44,20 +52,44 @@ public class GastoFragment extends Fragment implements IGastoActivityView,Search
         buscarGasto= rootView.findViewById(R.id.searchGbucarGasto);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        adapterHome = new AdapterListaGastos(consultarGastos());
+
+        ArrayList<GastoDTO> gastoDTO=consultarGastos();
+        Collections.sort(gastoDTO, (o1, o2) -> o1.getFechaRegistro().compareTo(o2.getFechaRegistro()));
+        ManejoListas<GastoDTO> manejoListas=new ManejoListas<>();
+        adapterHome = new AdapterListaGastos(manejoListas.ordenarLista(gastoDTO));
         recyclerView.setAdapter(adapterHome);
 
+        buscarGasto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterHome.getFilter().filter(newText);
+                return false;
+            }
+        });
+        agregar();
+        return rootView;
+    }
+
+    public  void  agregar(){
         actionButtonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(getContext(), ActivityGastos.class);
-                startActivity(intent);
+                if(consultarPresupuesto().getCantidad()==0.0  || consultarPresupuesto().getCantidad()<0 || consultarPresupuesto()==null){
+                    Confirmacion_Dialog confirmacion_dialog=new Confirmacion_Dialog();
+                    confirmacion_dialog.show(getActivity().getSupportFragmentManager(),"Seleccione Usuario");
+                }else{
+                    Intent intent;
+                    intent = new Intent(getContext(), ActivityGastos.class);
+                    startActivity(intent);
+                }
             }
         });
-        buscarGasto.setOnQueryTextListener(this);
-        return rootView;
+
     }
 
     @Override
@@ -67,17 +99,14 @@ public class GastoFragment extends Fragment implements IGastoActivityView,Search
     }
 
 
-
-
-
     @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
+    public PresupuestoDTO consultarPresupuestoDatos() {
+        return null;
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        adapterHome.filtrado(newText);
-        return false;
+    public PresupuestoDTO consultarPresupuesto() {
+        IPresupuestoFragmentView iPresupuestoFragmentView=new DAOPresupuestoIm(getContext());
+        return iPresupuestoFragmentView.consultarPresupuesto();
     }
 }

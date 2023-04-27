@@ -4,6 +4,8 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AdapterListaGastos extends RecyclerView.Adapter<AdapterListaGastos.ViewHolderDatosHome> {
+public class AdapterListaGastos extends RecyclerView.Adapter<AdapterListaGastos.ViewHolderDatosHome> implements Filterable {
 
     ArrayList<GastoDTO> mDataModelGasto;
     ArrayList<GastoDTO> buscado;
@@ -28,29 +30,41 @@ public class AdapterListaGastos extends RecyclerView.Adapter<AdapterListaGastos.
         buscado.addAll(mDataModelGasto);
     }
 
-    public void  filtrado(String buscar){
-        int longitud= buscar.length();
-        if(longitud==0){
-            mDataModelGasto.clear();
-            mDataModelGasto.addAll(buscado);
+    private Filter usuariobuscado = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<GastoDTO> listaFiltrada = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                listaFiltrada.addAll(buscado);
+            } else {
+                String patronFiltrado = constraint.toString().toLowerCase().trim();
 
-        }else {
-            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.R){
-                List<GastoDTO> lista= mDataModelGasto.stream().filter(i -> i.getNombre().toLowerCase().contains(buscar.toLowerCase())).collect(Collectors.toList());
-                mDataModelGasto.clear();
-                mDataModelGasto.addAll(lista);
-            }else {
-                for (GastoDTO gasto:buscado) {
-                    if(gasto.getNombre().toLowerCase().contains(buscar.toLowerCase())){
-                        mDataModelGasto.add(gasto);
+                for (GastoDTO usuarioDTO : buscado) {
+                    if (usuarioDTO.getNombre().toLowerCase().contains(patronFiltrado)) {
+                        listaFiltrada.add(usuarioDTO);
                     }
+
                 }
             }
 
-        }
-        notifyDataSetChanged();
-    }
+            FilterResults results = new FilterResults();
+            results.values = listaFiltrada;
 
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mDataModelGasto.clear();
+            mDataModelGasto.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    @Override
+    public Filter getFilter() {
+        return usuariobuscado;
+    }
 
     @NonNull
     @Override
