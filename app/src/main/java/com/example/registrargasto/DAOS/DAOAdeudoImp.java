@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.registrargasto.DAOS.IDAOS.IDAOAdeudo;
 import com.example.registrargasto.entidades.AdeudoDTO;
-import com.example.registrargasto.openHelperDb.DbHelper;
+import com.example.registrargasto.entidades.openHelperDb.DbHelper;
 import com.example.registrargasto.querys.DBQueryAdeudo;
 import com.example.registrargasto.view.fragment.IFragment.IAdeudoFragmentView;
 

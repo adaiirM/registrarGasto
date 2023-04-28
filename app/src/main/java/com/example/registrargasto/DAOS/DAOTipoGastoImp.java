@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.example.registrargasto.DAOS.IDAOS.IDAOTipoGasto;
 import com.example.registrargasto.entidades.TipoGastoDTO;
-import com.example.registrargasto.openHelperDb.DbHelper;
+import com.example.registrargasto.entidades.openHelperDb.DbHelper;
 import com.example.registrargasto.querys.DBQueryTipoGasto;
 
 import java.util.ArrayList;

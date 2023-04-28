@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.registrargasto.DAOS.IDAOS.IDAOPresupuesto;
 import com.example.registrargasto.entidades.PresupuestoDTO;
-import com.example.registrargasto.openHelperDb.DbHelper;
+import com.example.registrargasto.entidades.openHelperDb.DbHelper;
 import com.example.registrargasto.querys.DBQueryPresupuesto;
 import com.example.registrargasto.view.activity.IActivity.IPresupuestoactivityGasto;
 import com.example.registrargasto.view.fragment.IFragment.IPresupuestoFragmentView;
