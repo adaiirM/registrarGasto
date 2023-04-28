@@ -1,4 +1,4 @@
-package com.example.registrargasto.openHelperDb;
+package com.example.registrargasto.entidades.openHelperDb;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

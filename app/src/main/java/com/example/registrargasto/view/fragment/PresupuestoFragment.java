@@ -52,7 +52,7 @@ public class PresupuestoFragment extends Fragment implements IPresupuestoFragmen
             fechaFini.setText("");
         }else {
             presupuesto.setText(String.valueOf( consultarPresupuestoDatos().getCantidad()));
-            fechaIni.setText(consultarPresupuestoDatos().getGetFechaFin());
+            fechaIni.setText(consultarPresupuestoDatos().getFechaIni());
             fechaFini.setText(consultarPresupuestoDatos().getGetFechaFin());
         }
 

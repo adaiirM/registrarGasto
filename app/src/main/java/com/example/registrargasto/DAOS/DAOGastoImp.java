@@ -8,11 +8,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.registrargasto.Complements.OperacionesFechas;
 import com.example.registrargasto.DAOS.IDAOS.IDAOGasto;
 import com.example.registrargasto.entidades.AdeudoDTO;
 import com.example.registrargasto.entidades.GastoDTO;
-import com.example.registrargasto.openHelperDb.DbHelper;
-import com.example.registrargasto.querys.DBQueryAdeudo;
+import com.example.registrargasto.entidades.openHelperDb.DbHelper;
 import com.example.registrargasto.querys.DBQueryGastos;
 import com.example.registrargasto.view.activity.IActivity.IGastoActivityView;
 import com.example.registrargasto.view.fragment.IFragment.IGastoFragmentView;
@@ -53,11 +53,12 @@ public class DAOGastoImp extends DbHelper implements IDAOGasto, IGastoActivityVi
     public long registrarNuevoGastoAAdeudo(AdeudoDTO gastoDTO) {
         long id = 0;
         try{
+            OperacionesFechas operacionesFechas=new OperacionesFechas();
             DbHelper dbHelper = new DbHelper(context);
             SQLiteDatabase db =  dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("nombre_gasto",gastoDTO.getNombreadeudo());
-            values.put("fecha_registro", DBQueryAdeudo.UPDATE_AT);
+            values.put("fecha_registro", operacionesFechas.fechaActual());
             values.put("lugar",gastoDTO.getLugar());
             values.put("precio",gastoDTO.getPrecio());
             values.put("cantidad",gastoDTO.getCantidad());
