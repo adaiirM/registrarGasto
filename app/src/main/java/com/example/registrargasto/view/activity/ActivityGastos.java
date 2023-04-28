@@ -146,29 +146,34 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                         flag = false;
                     }
                     if (flag){
-                        String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
-                        GastoDTO adeudoDto = new GastoDTO(mNombreGasto.getText().toString(), mfechaGasto.getText().toString(),
-                                mLugar.getText().toString(), Double.valueOf(mPrecio.getText().toString()), Integer.valueOf(mCantidad.getText().toString()),
-                                Double.valueOf(mPrecio.getText().toString()) * Integer.valueOf(mCantidad.getText().toString()), idTipoGasto());
-                        // mostrarToast(adeudoDto.toString());
-                        long idAdeudo = registrarNuevoAdeudo(adeudoDto);
-                        if (idAdeudo > 0) {
-                            mostrarToast("El registro ha sido correcto.");
-                        } else {
-                            mostrarToast("Ha ocurrido algun error, verifique no insertar datos repetidos.");
+                        if(consultarPresupuestoid().getCantidad() - Double.parseDouble(mTotal.getText().toString()) < 0){
+                            mostrarToast("Tu presupuesto no es suficiente");
+                        }else {
+                            String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
+                            GastoDTO adeudoDto = new GastoDTO(mNombreGasto.getText().toString(), mfechaGasto.getText().toString(),
+                                    mLugar.getText().toString(), Double.valueOf(mPrecio.getText().toString()), Integer.valueOf(mCantidad.getText().toString()),
+                                    Double.valueOf(mPrecio.getText().toString()) * Integer.valueOf(mCantidad.getText().toString()), idTipoGasto());
+                            // mostrarToast(adeudoDto.toString());
+                            long idAdeudo = registrarNuevoAdeudo(adeudoDto);
+                            if (idAdeudo > 0) {
+                                mostrarToast("El registro ha sido correcto.");
+                            } else {
+                                mostrarToast("Ha ocurrido algun error, verifique no insertar datos repetidos.");
+                            }
+
+                            adapterListaGastos = new AdapterListaGastos(consultarGastos());
+                            adapterListaGastos.notifyItemChanged(consultarGastos().size());
+
+                            if(consultarPresupuestoid().getCantidad()>0.0){
+                                restarPresupuesto(Double.valueOf(mTotal.getText().toString()));
+                            }
+
+                            limpiarCampos();
+                            Intent intent;
+                            intent = new Intent(ActivityGastos.this, MainActivity.class);
+                            startActivity(intent);
                         }
 
-                        adapterListaGastos=new AdapterListaGastos(consultarGastos());
-                        adapterListaGastos.notifyItemChanged(consultarGastos().size());
-
-                        if(consultarPresupuestoid().getCantidad()>0.0){
-                            restarPresupuesto(Double.valueOf(mTotal.getText().toString()));
-                        }
-
-                        limpiarCampos();
-                        Intent intent;
-                        intent = new Intent(ActivityGastos.this, MainActivity.class);
-                        startActivity(intent);
                     }
 
                 }
@@ -274,15 +279,12 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
     //Metodo para verificar que no se introduzcan caracteres incorrectos
 
-    public static boolean verificarTexto(String cadena) {
-        for (int x = 0; x < cadena.length(); x++) {
-            char c = cadena.charAt(x);
-            // Si no está entre a y z, ni entre A y Z, ni es un espacio
-            if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean verificarTexto(String cadena){
+        String expReg = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+$";
+        if (cadena.matches(expReg)){
+            return true;
+        }else
+            return false;
     }
 
 

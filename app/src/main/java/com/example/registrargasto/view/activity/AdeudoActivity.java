@@ -205,15 +205,12 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
 
     //Metodo para verificar que no se introduzcan caracteres incorrectos
 
-    public static boolean verificarTexto(String cadena) {
-        for (int x = 0; x < cadena.length(); x++) {
-            char c = cadena.charAt(x);
-            // Si no está entre a y z, ni entre A y Z, ni es un espacio
-            if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean verificarTexto(String cadena){
+        String expReg = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+$";
+        if (cadena.matches(expReg)){
+            return true;
+        }else
+            return false;
     }
 
     private void asignarTotal(){
