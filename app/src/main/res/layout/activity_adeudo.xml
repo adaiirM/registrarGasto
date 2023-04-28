@@ -8,6 +8,14 @@
     android:fitsSystemWindows="true"
     tools:context=".view.activity.AdeudoActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Tipo de adeudo:"/>
+
     <Spinner
         android:id="@+id/ac_spinner_tipo_gasto_ad"
         android:layout_width="match_parent"
@@ -16,7 +24,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:textSize="24sp"
-        android:minHeight="70dp"/>
+        android:minHeight="70dp"
+        android:background="@drawable/borde"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_nom_gasto"
