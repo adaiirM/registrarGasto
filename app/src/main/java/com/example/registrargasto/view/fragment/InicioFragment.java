@@ -44,7 +44,6 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
     private final SimpleDateFormat dateFormatMonth = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
     private RecyclerView recyclerView;
     private TextView textView;
-    private TextView mtxtPresupuesto;
     private TextView mPresupuesto;
     private Button buttonCam;
 
@@ -77,15 +76,25 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener(){
             @Override
             public void onDayClick(Date dateClicked) {
+                ArrayList<AdeudoDTO> adeudoDTOS=consultarAdeudo();
+                PresupuestoDTO presupuestoDTOS=consultarPresupuestoDatos();
 
-                for (Event event:consultarEventos()) {
-                    if (dateFormatMonth.format(dateClicked).compareTo(milliADate(event.getTimeInMillis()))==0) {
-                        Toast.makeText(getContext(), Objects.requireNonNull(event.getData()).toString(), Toast.LENGTH_SHORT).show();
+                long mes= dateClicked.getTime();
+                String date=milliADate(mes);
 
-                    }else {
-                        Toast.makeText(getContext(), "No contiene eventos", Toast.LENGTH_SHORT).show();
+                for (AdeudoDTO adeudo: adeudoDTOS) {
+                    if(adeudo.getFechaLimite().equals(date)){
+                        String mensaje=adeudo.getNombreadeudo();
+                        Toast.makeText(getContext(),mensaje, Toast.LENGTH_SHORT).show();
                     }
                 }
+                if(presupuestoDTOS.getGetFechaFin().equals(date)){
+                    Toast.makeText(getContext(),"Fin de tu presupuesto", Toast.LENGTH_SHORT).show();
+                }
+                if (presupuestoDTOS.getFechaIni().equals(date)) {
+                    Toast.makeText(getContext(),"Inicio de tu presupuesto", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
 
@@ -149,28 +158,28 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
 
     public void agregarEventos(){
         Event evento;
-
         ArrayList<Event> eventos = new ArrayList<>();
+        PresupuestoDTO presupuestoDTO=consultarPresupuestoDatos()
+;
         for (AdeudoDTO adeudoDTO:consultarAdeudo()) {
-            evento=new Event(Color.rgb(26, 188, 156),fechaALong(adeudoDTO.getFechaLimite()),adeudoDTO.getNombreadeudo().toString());
+            evento=new Event(Color.rgb(26, 188, 156),fechaALong(adeudoDTO.getFechaLimite()),adeudoDTO.getNombreadeudo());
+            compactCalendar.addEvent(evento);
+        }
+        if(!presupuestoDTO.getFechaIni().isEmpty() || !presupuestoDTO.getFechaIni().equals(" ")){
+            evento=new Event(Color.RED,fechaALong(presupuestoDTO.getFechaIni()),"Inicio de tu presupuesto");
+            compactCalendar.addEvent(evento);
+        }
+        if(!presupuestoDTO.getGetFechaFin().isEmpty() || !presupuestoDTO.getGetFechaFin().equals(" ")){
+            evento=new Event(Color.RED,fechaALong(presupuestoDTO.getGetFechaFin()),"Fin de tu presupuesto");
             compactCalendar.addEvent(evento);
         }
     }
-    public ArrayList<Event> consultarEventos(){
 
-        Event evento;
-
-        ArrayList<Event> eventos = new ArrayList<>();
-        for (AdeudoDTO adeudoDTO:consultarAdeudo()) {
-            evento=new Event(Color.RED,fechaALong(adeudoDTO.getFechaLimite()),adeudoDTO.getNombreadeudo().toString());
-            eventos.add(evento);
-        }
-        return eventos;
-    }
 
     @Override
     public PresupuestoDTO consultarPresupuestoDatos() {
-        return null;
+        IPresupuestoFragmentView iPresupuestoFragmentView=new DAOPresupuestoIm(getContext());
+        return iPresupuestoFragmentView.consultarPresupuestoDatos();
     }
 
     @Override

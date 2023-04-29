@@ -21,4 +21,12 @@
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="MyTabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+    </style>
+
+    <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

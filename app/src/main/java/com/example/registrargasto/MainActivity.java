@@ -53,7 +53,7 @@ public class MainActivity extends FragmentActivity {
                         tab.setText("Adeudos");
                         break;
                     case 3:
-                        tab.setText("Preupuesto");
+                        tab.setText("Presupuesto");
                         break;
                     default:
                         break;

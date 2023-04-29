@@ -16,8 +16,11 @@ import com.example.registrargasto.DAOS.DAOPresupuestoIm;
 import com.example.registrargasto.DAOS.IDAOS.IDAOPresupuesto;
 import com.example.registrargasto.MainActivity;
 import com.example.registrargasto.R;
+import com.example.registrargasto.Validaciones.ValidacionesFechas;
 import com.example.registrargasto.entidades.PresupuestoDTO;
 import com.example.registrargasto.view.dialog.DatePickerFragment;
+
+import java.util.ArrayList;
 
 public class PresupuestoActivity extends AppCompatActivity implements IDAOPresupuesto {
     private TextView presupuesto;
@@ -25,6 +28,8 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
     private TextView fin_presupuesto;
     private Button guardar;
     private Button cancelar;
+
+    ArrayList<TextView> arrayTextview=new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,6 +43,7 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
         cancelar=findViewById(R.id.ac_btn_cancelarPresupuesto);
         lanzarDatePicker1();
         lanzarDatePicker2();
+        inicializarArrayTw();
         clickGUardar();
         cancelar();
     }
@@ -47,38 +53,69 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(validarCamposVacios() && validarFecha()){
+                    String fechaActual1 = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
+                    String fechaActual2 = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
+                    PresupuestoDTO presupuestoDTO = new PresupuestoDTO(Double.valueOf(presupuesto.getText().toString()),ini_presupuesto.getText().toString(),fin_presupuesto.getText().toString());
+                    // mostrarToast(adeudoDto.toString());
+                    long idAdeudo = registarPresupuesto(presupuestoDTO);
+                    if (idAdeudo > 0) {
+                        mostrarToast("El registro ha sido correcto.");
+                    } else {
+                        mostrarToast("Ha ocurrido algun error, verifique no insertar datos repetidos.");
+                    }
 
-                String fechaActual1 = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
-                String fechaActual2 = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
-                PresupuestoDTO presupuestoDTO = new PresupuestoDTO(Double.valueOf(presupuesto.getText().toString()),ini_presupuesto.getText().toString(),fin_presupuesto.getText().toString());
-                // mostrarToast(adeudoDto.toString());
-                long idAdeudo = registarPresupuesto(presupuestoDTO);
-                if (idAdeudo > 0) {
-                    mostrarToast("El registro ha sido correcto.");
-                } else {
-                    mostrarToast("Ha ocurrido algun error, verifique no insertar datos repetidos.");
+                    Intent intent;
+                    intent = new Intent(PresupuestoActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
 
-                limpiarCampos();
-                Intent intent;
-                intent = new Intent(PresupuestoActivity.this, MainActivity.class);
-                startActivity(intent);
             }
 
         });
+    }
+
+    public void inicializarArrayTw(){
+        arrayTextview.add(presupuesto);
+        arrayTextview.add(ini_presupuesto);
+        arrayTextview.add(fin_presupuesto);
     }
 
     private void cancelar(){
         cancelar.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  limpiarCampos();
                   Intent intent;
                   intent = new Intent(PresupuestoActivity.this, MainActivity.class);
                   startActivity(intent);
               }
           }
         );
+    }
+
+
+    public boolean validarCamposVacios(){
+        boolean estado = true;
+        for ( TextView textview : arrayTextview ) {
+            if(textview.getText().toString().isEmpty() || textview.getText().toString().equals(" ") ){
+                estado=false;
+                textview.setError("Este campo no puede ir vacio");
+            }
+        }
+        return  estado;
+    }
+    public boolean validarFecha(){
+        boolean estado=true;
+        ValidacionesFechas validacionesFechas=new ValidacionesFechas();
+        if (validacionesFechas.validarFechaLimite(fin_presupuesto.getText().toString())==false){
+            fin_presupuesto.setError("La fecha es incorrecta,no puede poer una fecha que ya paso");
+
+            estado=false;
+        }else if(validacionesFechas.validarFechasIniFin(ini_presupuesto.getText().toString(),fin_presupuesto.getText().toString())==false){
+            fin_presupuesto.setError("La fecha es incorrecta, no puede ser menor a la fecha de inicio");
+            estado=false;
+        }
+        return estado;
     }
 
     private String twoDigits(int n) {
@@ -125,11 +162,7 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
         });
     }
 
-    private void limpiarCampos() {
-        ini_presupuesto.setText("");
-        fin_presupuesto.setText("");
-        presupuesto.setText("");
-    }
+
 
     private void mostrarToast(String mensaje) {
         Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();

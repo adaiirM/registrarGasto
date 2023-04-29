@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.registrargasto.Complements.ManejoListas;
+import com.example.registrargasto.Complements.OperacionesFechas;
 import com.example.registrargasto.DAOS.DAOGastoImp;
 import com.example.registrargasto.DAOS.DAOPresupuestoIm;
 import com.example.registrargasto.R;
@@ -54,9 +55,12 @@ public class GastoFragment extends Fragment implements IGastoActivityView, IPres
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
         ArrayList<GastoDTO> gastoDTO=consultarGastos();
-        Collections.sort(gastoDTO, (o1, o2) -> o1.getFechaRegistro().compareTo(o2.getFechaRegistro()));
-        ManejoListas<GastoDTO> manejoListas=new ManejoListas<>();
-        adapterHome = new AdapterListaGastos(manejoListas.ordenarLista(gastoDTO));
+        OperacionesFechas operacionesFechas = new OperacionesFechas();
+        try {
+            adapterHome = new AdapterListaGastos(operacionesFechas.fechasOrdenadasGasto(gastoDTO));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         recyclerView.setAdapter(adapterHome);
 
         buscarGasto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

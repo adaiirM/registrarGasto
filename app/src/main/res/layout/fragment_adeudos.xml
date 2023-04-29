@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="#1DC80C"
-                android:padding="8dp"
+                android:padding="4dp"
                 android:textAlignment="center"
                 android:text="@string/tituloAdeudo"
                 android:textColor="@color/black"

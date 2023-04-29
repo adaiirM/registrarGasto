@@ -64,7 +64,6 @@
         android:layout_height="310dp"
         android:orientation="vertical"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -76,8 +75,10 @@
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:listitem="@layout/item_list_gastos" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -86,6 +87,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:padding="5dp"
+        android:background="@color/teal_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar"
@@ -106,14 +109,13 @@
         <TextView
             android:id="@+id/mosPresupuesto"
             android:layout_width="102dp"
-            android:layout_height="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonCambiar"
-            app:layout_constraintHorizontal_bias="0.395"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textPresupuesto"
             app:layout_constraintStart_toEndOf="@+id/textPresupuesto"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/textPresupuesto" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonCambiar"
             android:layout_width="109dp"
             android:layout_height="49dp"

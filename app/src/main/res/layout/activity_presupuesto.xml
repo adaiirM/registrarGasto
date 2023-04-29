@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.activity.PresupuestoActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        android:text="Modifica tu presupuesto"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_pres_fecha_inicio"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
