@@ -141,7 +141,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                         || mPrecio.getText().toString().equals("") || idTipoGasto() == 0){
                     mostrarToast("Rellena todos los campos");
                 } else{
-                    if (verificarTexto(mNombreGasto.getText().toString())){
+                    if (!verificarTexto(mNombreGasto.getText().toString())){
                         mostrarToast("Nombre de gasto: Ingresa solo letras");
                         flag = false;
                     }

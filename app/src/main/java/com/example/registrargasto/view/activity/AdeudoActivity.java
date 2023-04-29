@@ -139,7 +139,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
                         || mPrecio.getText().toString().equals("") || idTipoGasto() == 0){
                     mostrarToast("Rellena todos los campos");
                 } else{
-                    if (verificarTexto(mNombreAdeudo.getText().toString())){
+                    if (!verificarTexto(mNombreAdeudo.getText().toString())){
                         mostrarToast("Nombre de gasto: Ingresa solo letras");
                         flag = false;
                     }
