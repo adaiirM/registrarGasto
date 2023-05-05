@@ -217,7 +217,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
         try {
             if(validacionesFechas.validarActualAterior(mfechaGasto.getText().toString()) || validacionesFechas.validarFechasIguales(mfechaGasto.getText().toString()) ){
                 mfechaGasto.setError(" ");
-                mostrarToast("Fecha: No puedes ingresar una fecha que ya paso");
+                mostrarToast("Fecha: No puedes ingresar una fecha igual o anterior a hoy");
                 estado=false;
             }else{
                 estado=true;

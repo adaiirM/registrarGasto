@@ -31,7 +31,7 @@ public class OperacionesFechas {
 
     public boolean compararFechasIguales(Date date1, Date date2){
         boolean estado=false;
-        if(date1.before(date2)){
+        if(date1.equals(date2)){
             estado=true;
         }
         return estado;
