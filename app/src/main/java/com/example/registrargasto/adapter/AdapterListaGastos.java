@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.registrargasto.Complements.OperacionesFechas;
 import com.example.registrargasto.R;
 import com.example.registrargasto.entidades.GastoDTO;
 
@@ -24,8 +25,13 @@ public class AdapterListaGastos extends RecyclerView.Adapter<AdapterListaGastos.
     ArrayList<GastoDTO> mDataModelGasto;
     ArrayList<GastoDTO> buscado;
 
-    public AdapterListaGastos(ArrayList<GastoDTO> dataModelGastos){
+    OperacionesFechas operacionesFechas = new OperacionesFechas();
+
+
+
+    public AdapterListaGastos(ArrayList<GastoDTO> dataModelGastos) throws Exception {
         this.mDataModelGasto = dataModelGastos;
+        mDataModelGasto = operacionesFechas.fechasOrdenadasGasto(mDataModelGasto);
         this.buscado=new ArrayList<>();
         buscado.addAll(mDataModelGasto);
     }

@@ -11,28 +11,62 @@ public class ValidacionesFechas {
     public boolean validarFechaLimite( String fechaFin){
         boolean estado=false;
         try {
-            Date fechaFinal= operacionesFechas.fechaDate(fechaFin);
-            Date fechaActual= operacionesFechas.fechaDate(operacionesFechas.fechaActual());
-            estado=operacionesFechas.compararFechas(fechaActual,fechaFinal);
+            Date fechaFinal= operacionesFechas.StringADate(fechaFin);
+            Date fechaActual= operacionesFechas.StringADate(operacionesFechas.fechaActual());
+            estado=operacionesFechas.compararFechaAnterior(fechaActual,fechaFinal);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return estado;
     }
-    public boolean valifarFin(String fechaFin){
-        boolean estado=true;
-        if(fechaFin.equals(operacionesFechas.fechaActual())){
+
+    //Este metodo verifica que la fecha a comparar sea posterior a la fechas actual
+    public boolean validarActualPosterior(String fechaFin){
+        boolean estado=false;
+        try {
+            Date fechaFinal= operacionesFechas.StringADate(fechaFin);
+            Date fechaActual= operacionesFechas.StringADate(operacionesFechas.fechaActual());
+            estado=operacionesFechas.compararFechaPorterior(fechaFinal,fechaActual);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return estado;
+    }
+    //Este metodo verifica que la fecha a comparar sea anterior a la fechas actual
+    public boolean validarActualAterior(String fechaFin){
+        boolean estado=false;
+        try {
+            Date fechaFinal= operacionesFechas.StringADate(fechaFin);
+            Date fechaActual= operacionesFechas.StringADate(operacionesFechas.fechaActual());
+            estado=operacionesFechas.compararFechaAnterior(fechaFinal,fechaActual);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return estado;
+    }
+
+    public boolean validarFechasIguales(String fecha) throws Exception {
+        boolean estado= false;
+        Date date1=operacionesFechas.StringADate(fecha);
+        Date date2=operacionesFechas.StringADate(operacionesFechas.fechaActual());
+        if(operacionesFechas.compararFechasIguales(date1,date2)){
+            estado=true;
+        }else {
             estado=false;
         }
         return estado;
     }
+
+    //Este metodo compara dos fechas, verifica que la inicial sea anterior a la final
     public boolean validarFechasIniFin ( String fechaIni , String fechaFin) {
         boolean estado=false;
         try {
-            Date fechaInicio= operacionesFechas.fechaDate(fechaIni);
-            Date fechaFinal= operacionesFechas.fechaDate(fechaFin);
-            estado=operacionesFechas.compararFechas(fechaInicio,fechaFinal);
+            Date fechaInicio= operacionesFechas.StringADate(fechaIni);
+            Date fechaFinal= operacionesFechas.StringADate(fechaFin);
+            estado=operacionesFechas.compararFechaAnterior(fechaInicio,fechaFinal);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

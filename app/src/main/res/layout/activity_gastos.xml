@@ -167,7 +167,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ac_btn_cancelarAdeudo"
+            android:id="@+id/ag_btn_cancelarAdeudo"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/cancelar"

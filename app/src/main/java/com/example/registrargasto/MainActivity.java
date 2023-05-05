@@ -23,7 +23,6 @@ public class MainActivity extends FragmentActivity {
     private ViewPager2 mViewPager2;
     private FragmentStateAdapter mPagerAdapter;
     private TabLayout mTabLayout;
-    private final int ICON= R.drawable.ic_launcher_background;
 
     @Override
     protected void onCreate (Bundle saveIndtance) {
