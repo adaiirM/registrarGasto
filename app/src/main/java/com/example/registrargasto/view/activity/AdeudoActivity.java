@@ -21,6 +21,7 @@ import com.example.registrargasto.DAOS.IDAOS.IDAOAdeudo;
 import com.example.registrargasto.DAOS.IDAOS.IDAOTipoGasto;
 import com.example.registrargasto.MainActivity;
 import com.example.registrargasto.R;
+import com.example.registrargasto.Validaciones.ValidacionesFechas;
 import com.example.registrargasto.adapter.AdapterListaAdeudos;
 import com.example.registrargasto.entidades.AdeudoDTO;
 import com.example.registrargasto.entidades.TipoGastoDTO;
@@ -28,6 +29,8 @@ import com.example.registrargasto.view.dialog.DatePickerFragment;
 import com.example.registrargasto.view.fragment.IFragment.IAdeudoFragmentView;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, IDAOAdeudo, IAdeudoFragmentView {
 
@@ -98,14 +101,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
         spinnerTipoGasto.setAdapter(adapter);
     }
 
-    private void limpiarCampos() {
-        mfechaGasto.setText("");
-        mNombreAdeudo.setText("");
-        mLugar.setText("");
-        mCantidad.setText("");
-        mPrecio.setText("");
-        mTotal.setText("");
-    }
+
 
 
     private String twoDigits(int n) {
@@ -143,6 +139,9 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
                         mostrarToast("Nombre de gasto: Ingresa solo letras");
                         flag = false;
                     }
+                    if(!verificarFecha()){
+                        flag = false;
+                    }
                     if (flag){
                         String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
                         AdeudoDTO adeudoDto = new AdeudoDTO(mNombreAdeudo.getText().toString(),mLugar.getText().toString(),Double.valueOf(mPrecio.getText().toString()),
@@ -162,7 +161,6 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
                         Intent intent;
                         intent = new Intent(AdeudoActivity.this, MainActivity.class);
                         startActivity(intent);
-                        limpiarCampos();
                     }
 
                 }
@@ -176,7 +174,6 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
         mButonCancelar.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              limpiarCampos();
               Intent intent;
               intent = new Intent(AdeudoActivity.this, MainActivity.class);
               startActivity(intent);
@@ -206,11 +203,29 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
     //Metodo para verificar que no se introduzcan caracteres incorrectos
 
     public static boolean verificarTexto(String cadena){
-        String expReg = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+$";
-        if (cadena.matches(expReg)){
+        Pattern patron=Pattern.compile("[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+");
+        Matcher comprobacion = patron.matcher(cadena);
+        if (comprobacion.matches()){
             return true;
-        }else
+        }else{
             return false;
+        }
+    }
+    public boolean verificarFecha(){
+        ValidacionesFechas validacionesFechas=new ValidacionesFechas();
+        boolean estado;
+        try {
+            if(validacionesFechas.validarActualAterior(mfechaGasto.getText().toString()) || validacionesFechas.validarFechasIguales(mfechaGasto.getText().toString()) ){
+                mfechaGasto.setError(" ");
+                mostrarToast("Fecha: No puedes ingresar una fecha que ya paso");
+                estado=false;
+            }else{
+                estado=true;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return estado;
     }
 
     private void asignarTotal(){

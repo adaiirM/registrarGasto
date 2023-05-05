@@ -61,7 +61,12 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
 
         //Adaptador de recyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        AdapterListaGastos adapterHome = new AdapterListaGastos(consultarGastos());
+        AdapterListaGastos adapterHome = null;
+        try {
+            adapterHome = new AdapterListaGastos(consultarGastos());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         recyclerView.setAdapter(adapterHome);
 
         compactCalendar.setUseThreeLetterAbbreviation(true);

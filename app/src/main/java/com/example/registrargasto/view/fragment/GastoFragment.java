@@ -55,12 +55,13 @@ public class GastoFragment extends Fragment implements IGastoActivityView, IPres
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
         ArrayList<GastoDTO> gastoDTO=consultarGastos();
-        OperacionesFechas operacionesFechas = new OperacionesFechas();
+
         try {
-            adapterHome = new AdapterListaGastos(operacionesFechas.fechasOrdenadasGasto(gastoDTO));
+            adapterHome = new AdapterListaGastos(gastoDTO);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         recyclerView.setAdapter(adapterHome);
 
         buscarGasto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
