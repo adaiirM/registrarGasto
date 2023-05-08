@@ -23,7 +23,6 @@ import com.example.registrargasto.DAOS.IDAOS.IDAOGasto;
 import com.example.registrargasto.DAOS.IDAOS.IDAOTipoGasto;
 import com.example.registrargasto.MainActivity;
 import com.example.registrargasto.R;
-import com.example.registrargasto.Validaciones.ValidacionesFechas;
 import com.example.registrargasto.adapter.AdapterListaGastos;
 import com.example.registrargasto.entidades.GastoDTO;
 import com.example.registrargasto.entidades.PresupuestoDTO;
@@ -33,13 +32,11 @@ import com.example.registrargasto.view.activity.IActivity.IPresupuestoactivityGa
 import com.example.registrargasto.view.dialog.DatePickerFragment;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAOTipoGasto, IGastoActivityView, IPresupuestoactivityGasto {
 
     private EditText mfechaGasto;
-    private  Spinner mTipoGasto;
+    private static Spinner mTipoGasto;
     private EditText mNombreGasto;
     private EditText mPrecio;
     private EditText mLugar;
@@ -47,11 +44,16 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
     private EditText mTotal;
     private Button mButonGuardar;
     private Button mButonCancelar;
+    private EditText itemTipoGasto;
     private AdapterListaGastos adapterListaGastos;
 
     private ArrayList<String>listTipoGastos;
     private ArrayList<TipoGastoDTO> listaTipoGasto;
 
+    private String[] tipoGasto;
+    private long id;
+    private String tipoGastos;
+    private String fechaActual;
 
 
 
@@ -65,7 +67,6 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         adapterTipoGasto();
         asignarTotal();
         clickGUardar();
-        cancelar();
 
 
     }
@@ -81,7 +82,6 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         mPrecio = findViewById(R.id.edt_precio);
         mTotal = findViewById(R.id.edt_total_gasto);
         mButonGuardar = findViewById(R.id.btn_guardarAdeudo);
-        mButonCancelar= findViewById(R.id.ag_btn_cancelarAdeudo);
     }
 
 
@@ -145,16 +145,15 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                         mostrarToast("Nombre de gasto: Ingresa solo letras");
                         flag = false;
                     }
-                    if(!verificarFecha()){
-                        flag= false;
-                    }
                     if (flag){
                         if(consultarPresupuestoid().getCantidad() - Double.parseDouble(mTotal.getText().toString()) < 0){
                             mostrarToast("Tu presupuesto no es suficiente");
                         }else {
+                            String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
                             GastoDTO adeudoDto = new GastoDTO(mNombreGasto.getText().toString(), mfechaGasto.getText().toString(),
                                     mLugar.getText().toString(), Double.valueOf(mPrecio.getText().toString()), Integer.valueOf(mCantidad.getText().toString()),
                                     Double.valueOf(mPrecio.getText().toString()) * Integer.valueOf(mCantidad.getText().toString()), idTipoGasto());
+                            // mostrarToast(adeudoDto.toString());
                             long idAdeudo = registrarNuevoAdeudo(adeudoDto);
                             if (idAdeudo > 0) {
                                 mostrarToast("El registro ha sido correcto.");
@@ -165,7 +164,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                             try {
                                 adapterListaGastos = new AdapterListaGastos(consultarGastos());
                             } catch (Exception e) {
-                                throw new RuntimeException(e);
+                                e.printStackTrace();
                             }
                             adapterListaGastos.notifyItemChanged(consultarGastos().size());
 
@@ -173,6 +172,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                                 restarPresupuesto(Double.valueOf(mTotal.getText().toString()));
                             }
 
+                            limpiarCampos();
                             Intent intent;
                             intent = new Intent(ActivityGastos.this, MainActivity.class);
                             startActivity(intent);
@@ -190,6 +190,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         mButonCancelar.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
+                  limpiarCampos();
                   Intent intent;
                   intent = new Intent(ActivityGastos.this, MainActivity.class);
                   startActivity(intent);
@@ -244,11 +245,30 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 verficarCampos();
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                int decimalCount = 0;
+                int length = str.length();
+
+                for (int i = 0; i < length; i++) {
+                    char c = str.charAt(i);
+                    if (c == '.') {
+                        decimalCount++;
+                        if (decimalCount > 1) {
+                            s.delete(i, i + 1);
+                            return;
+                        }
+                    } else if (decimalCount == 1 && i > (str.indexOf('.') + 2)) {
+                        s.delete(i, i + 1);
+                        return;
+                    }
+                }
+            }
         });
     }
 
@@ -267,7 +287,14 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
     }
 
 
-
+    private void limpiarCampos() {
+        mfechaGasto.setText("");
+        mNombreGasto.setText("");
+        mLugar.setText("");
+        mCantidad.setText("");
+        mPrecio.setText("");
+        mTotal.setText("");
+    }
 
     private void mostrarToast(String mensaje) {
         Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
@@ -276,27 +303,11 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
     //Metodo para verificar que no se introduzcan caracteres incorrectos
 
     public static boolean verificarTexto(String cadena){
-        Pattern patron=Pattern.compile("[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+");
-        Matcher comprobacion = patron.matcher(cadena);
-        if (comprobacion.matches()){
+        String expReg = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+$";
+        if (cadena.matches(expReg)){
             return true;
-        }else{
+        }else
             return false;
-        }
-
-    }
-
-    public boolean verificarFecha(){
-        ValidacionesFechas validacionesFechas=new ValidacionesFechas();
-        boolean estado;
-        if(validacionesFechas.validarActualPosterior(mfechaGasto.getText().toString())){
-            mfechaGasto.setError(" ");
-            mostrarToast("Fecha: No puedes ingresar una fecha que ha no llegado");
-            estado=false;
-        }else{
-            estado=true;
-        }
-        return estado;
     }
 
 

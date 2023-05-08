@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
-
 import com.example.registrargasto.adapter.AdapterFragment;
 import com.example.registrargasto.util.ZoomOutPageTransformer;
 import com.example.registrargasto.view.fragment.AdeudoFragment;
@@ -36,7 +34,7 @@ public class MainActivity extends FragmentActivity {
 
         mPagerAdapter = new AdapterFragment(getSupportFragmentManager(),getLifecycle(),loadFragment());
         mViewPager2.setAdapter(mPagerAdapter);
-
+        mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.teal_700));
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(mTabLayout,mViewPager2,new TabLayoutMediator.TabConfigurationStrategy(){
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -49,7 +47,7 @@ public class MainActivity extends FragmentActivity {
                         tab.setText("Gastos");
                         break;
                     case 2:
-                        tab.setText("Adeudos");
+                        tab.setText("Pendientes");
                         break;
                     case 3:
                         tab.setText("Presupuesto");
