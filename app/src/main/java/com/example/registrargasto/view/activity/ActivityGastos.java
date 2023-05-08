@@ -303,7 +303,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
     //Metodo para verificar que no se introduzcan caracteres incorrectos
 
     public static boolean verificarTexto(String cadena){
-        String expReg = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+$";
+        String expReg = "[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+";
         if (cadena.matches(expReg)){
             return true;
         }else
