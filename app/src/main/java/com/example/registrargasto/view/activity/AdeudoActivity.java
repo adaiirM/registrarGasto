@@ -254,7 +254,25 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                int decimalCount = 0;
+                int length = str.length();
+
+                for (int i = 0; i < length; i++) {
+                    char c = str.charAt(i);
+                    if (c == '.') {
+                        decimalCount++;
+                        if (decimalCount > 1) {
+                            s.delete(i, i + 1);
+                            return;
+                        }
+                    } else if (decimalCount == 1 && i > (str.indexOf('.') + 2)) {
+                        s.delete(i, i + 1);
+                        return;
+                    }
+                }
+            }
         });
     }
 
