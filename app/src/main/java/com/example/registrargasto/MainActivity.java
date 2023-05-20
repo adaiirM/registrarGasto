@@ -3,8 +3,12 @@ package com.example.registrargasto;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.example.registrargasto.adapter.AdapterFragment;
 import com.example.registrargasto.util.ZoomOutPageTransformer;
@@ -17,7 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity  {
     private ViewPager2 mViewPager2;
     private FragmentStateAdapter mPagerAdapter;
     private TabLayout mTabLayout;
@@ -27,6 +31,7 @@ public class MainActivity extends FragmentActivity {
 
         super.onCreate(saveIndtance);
         setContentView(R.layout.activity_main);
+
 
         mViewPager2=findViewById(R.id.pager);
         mTabLayout =  findViewById(R.id.tab_layout);

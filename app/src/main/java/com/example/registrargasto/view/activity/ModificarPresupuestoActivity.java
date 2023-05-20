@@ -19,10 +19,12 @@ import com.example.registrargasto.R;
 import com.example.registrargasto.Validaciones.ValidacionesFechas;
 import com.example.registrargasto.entidades.PresupuestoDTO;
 import com.example.registrargasto.view.dialog.DatePickerFragment;
+import com.example.registrargasto.view.fragment.IFragment.IPresupuestoFragmentView;
 
 import java.util.ArrayList;
 
-public class PresupuestoActivity extends AppCompatActivity implements IDAOPresupuesto {
+public class ModificarPresupuestoActivity extends AppCompatActivity  implements IDAOPresupuesto, IPresupuestoFragmentView {
+
     private TextView presupuesto;
     private TextView ini_presupuesto;
     private TextView fin_presupuesto;
@@ -35,17 +37,29 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_presupuesto);
-        presupuesto=findViewById(R.id.ac_pres_monto);
-        ini_presupuesto=findViewById(R.id.ac_pres_fecha_inicio);
-        fin_presupuesto=findViewById(R.id.ac_pres_fecha_fin);
-        guardar=findViewById(R.id.ac_btn_guardarPresupuesto);
-        cancelar=findViewById(R.id.ac_btn_cancelarPresupuesto);
+        setContentView(R.layout.activity_modificar_presupuesto);
+        presupuesto=findViewById(R.id.amp_pres_monto);
+        ini_presupuesto=findViewById(R.id.amp_pres_fecha_inicio);
+        fin_presupuesto=findViewById(R.id.amp_pres_fecha_fin);
+        guardar=findViewById(R.id.amp_btn_guardarPresupuesto);
+        cancelar=findViewById(R.id.amp_btn_cancelarPresupuesto);
+
+        inicializar();
         lanzarDatePicker1();
         lanzarDatePicker2();
         inicializarArrayTw();
         clickGUardar();
         cancelar();
+
+    }
+    private void inicializar() {
+        PresupuestoDTO presupuestoDTO = consultarPresupuestoDatos();
+        Double presupuesto1=presupuestoDTO.getCantidad();
+        presupuesto.setText(presupuesto1.toString());
+        ini_presupuesto.setText(presupuestoDTO.getFechaIni());
+        fin_presupuesto.setText(presupuestoDTO.getGetFechaFin());
+
+
     }
 
     private void clickGUardar() {
@@ -66,7 +80,7 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
                     }
 
                     Intent intent;
-                    intent = new Intent(PresupuestoActivity.this, MainActivity.class);
+                    intent = new Intent(ModificarPresupuestoActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
 
@@ -83,13 +97,13 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
 
     private void cancelar(){
         cancelar.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  Intent intent;
-                  intent = new Intent(PresupuestoActivity.this, MainActivity.class);
-                  startActivity(intent);
-              }
-          }
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(ModificarPresupuestoActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
         );
     }
 
@@ -110,7 +124,6 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
         if (validacionesFechas.validarFechaLimite(fin_presupuesto.getText().toString())==false){
             fin_presupuesto.setError("La fecha es incorrecta,no puede poer una fecha que ya paso");
 
-
             estado=false;
         }else if(validacionesFechas.validarFechasIniFin(ini_presupuesto.getText().toString(),fin_presupuesto.getText().toString())==false){
             fin_presupuesto.setError("La fecha es incorrecta, no puede ser menor a la fecha de inicio");
@@ -119,11 +132,11 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
         return estado;
     }
     private  boolean validarMonto(){
-        boolean estado=true;
+        boolean estado= true;
         if(Double.valueOf(presupuesto.getText().toString()) == 0.0 || presupuesto.getText().toString() == "0"){
             presupuesto.setError("Monto de presupuesto no valido");
             mostrarToast("Monto de presupuesto no valido");
-            estado= false;
+            estado = false;
         }
         return estado;
     }
@@ -181,7 +194,20 @@ public class PresupuestoActivity extends AppCompatActivity implements IDAOPresup
 
     @Override
     public long registarPresupuesto(PresupuestoDTO presupuestoDTO) {
-        IDAOPresupuesto idaoPresupuesto=new DAOPresupuestoIm(PresupuestoActivity.this);
+        IDAOPresupuesto idaoPresupuesto=new DAOPresupuestoIm(ModificarPresupuestoActivity.this);
         return idaoPresupuesto.registarPresupuesto(presupuestoDTO);
     }
+
+    @Override
+    public PresupuestoDTO consultarPresupuestoDatos() {
+        IPresupuestoFragmentView iPresupuestoFragmentView=new DAOPresupuestoIm(ModificarPresupuestoActivity.this);
+        return iPresupuestoFragmentView.consultarPresupuestoDatos();
+    }
+
+    @Override
+    public PresupuestoDTO consultarPresupuesto() {
+        return null;
+    }
 }
+
+
