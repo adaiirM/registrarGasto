@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
 import androidx.leanback.app.OnboardingSupportFragment;
+
 import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -27,7 +29,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity  {
     private ViewPager2 mViewPager2;
     private FragmentStateAdapter mPagerAdapter;
     private TabLayout mTabLayout;
@@ -37,6 +39,7 @@ public class MainActivity extends FragmentActivity {
 
         super.onCreate(saveIndtance);
         setContentView(R.layout.activity_main);
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyP", MODE_PRIVATE);
         boolean isFirstStart = sharedPreferences.getBoolean("isFirstStart", true);
@@ -48,6 +51,7 @@ public class MainActivity extends FragmentActivity {
             editor.putBoolean("isFirstStart", false);
             editor.apply();
         }
+
 
         mViewPager2=findViewById(R.id.pager);
         mTabLayout =  findViewById(R.id.tab_layout);

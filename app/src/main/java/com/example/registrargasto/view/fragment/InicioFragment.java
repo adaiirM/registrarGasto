@@ -24,6 +24,7 @@ import com.example.registrargasto.entidades.AdeudoDTO;
 import com.example.registrargasto.entidades.GastoDTO;
 import com.example.registrargasto.entidades.PresupuestoDTO;
 import com.example.registrargasto.view.activity.IActivity.IGastoActivityView;
+import com.example.registrargasto.view.activity.ModificarPresupuestoActivity;
 import com.example.registrargasto.view.activity.PresupuestoActivity;
 import com.example.registrargasto.view.fragment.IFragment.IAdeudoFragmentView;
 import com.example.registrargasto.view.fragment.IFragment.IPresupuestoFragmentView;
@@ -93,14 +94,14 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
                         Toast.makeText(getContext(),mensaje, Toast.LENGTH_SHORT).show();
                     }
                 }
-                if(presupuestoDTOS.getGetFechaFin().equals(date)){
-                    Toast.makeText(getContext(),"Fin de tu presupuesto", Toast.LENGTH_SHORT).show();
-                }
-                if (presupuestoDTOS.getFechaIni().equals(date)) {
-                    Toast.makeText(getContext(),"Inicio de tu presupuesto", Toast.LENGTH_SHORT).show();
-                }
-
-
+               if(presupuestoDTOS.getFechaIni() != ""){
+                   if(presupuestoDTOS.getGetFechaFin().equals(date)){
+                       Toast.makeText(getContext(),"Fin de tu presupuesto", Toast.LENGTH_SHORT).show();
+                   }
+                   if (presupuestoDTOS.getFechaIni().equals(date)) {
+                       Toast.makeText(getContext(),"Inicio de tu presupuesto", Toast.LENGTH_SHORT).show();
+                   }
+               }
             }
 
             @Override
@@ -124,7 +125,7 @@ public class InicioFragment extends Fragment implements IGastoActivityView, IPre
                  public void onClick(View v) {
                      if (consultarPresupuesto().getCantidad() != 0){
                          Intent intent;
-                         intent = new Intent(getContext(), PresupuestoActivity.class);
+                         intent = new Intent(getContext(), ModificarPresupuestoActivity.class);
                          startActivity(intent);
                      }else
                          Toast.makeText(getContext(), "Establesca un presupuesto primero", Toast.LENGTH_SHORT).show();

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.activity.PresupuestoActivity">
-
+    tools:context=".view.activity.ModificarPresupuestoActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +23,7 @@
         android:hint="Fecha de inicio">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ac_pres_fecha_inicio"
+            android:id="@+id/amp_pres_fecha_inicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
@@ -44,7 +42,7 @@
         android:hint="Fecha de termino">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ac_pres_fecha_fin"
+            android:id="@+id/amp_pres_fecha_fin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
@@ -62,7 +60,7 @@
         android:hint="Monto">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ac_pres_monto"
+            android:id="@+id/amp_pres_monto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
@@ -73,7 +71,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ac_btn_cancelarPresupuesto"
+            android:id="@+id/amp_btn_cancelarPresupuesto"
             android:layout_width="121dp"
             android:layout_height="wrap_content"
             android:text="Cancelar"
@@ -87,7 +85,7 @@
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/ac_btn_guardarPresupuesto"
+            android:id="@+id/amp_btn_guardarPresupuesto"
             android:layout_width="121dp"
             android:layout_height="wrap_content"
             android:text="Guardar"
@@ -102,5 +100,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
-
+</com.google.android.material.textfield.TextInputLayout>
