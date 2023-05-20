@@ -67,6 +67,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         adapterTipoGasto();
         asignarTotal();
         clickGUardar();
+        cancelar();
 
 
     }
@@ -82,6 +83,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         mPrecio = findViewById(R.id.edt_precio);
         mTotal = findViewById(R.id.edt_total_gasto);
         mButonGuardar = findViewById(R.id.btn_guardarAdeudo);
+        mButonCancelar = findViewById(R.id.ag_btn_cancelarAdeudo);
     }
 
 
@@ -145,6 +147,12 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                         mostrarToast("Nombre de gasto: Ingresa solo letras");
                         flag = false;
                     }
+
+                    if (Double.parseDouble(mPrecio.getText().toString()) == 0 || Double.parseDouble(mCantidad.getText().toString()) == 0){
+                        mostrarToast("Ingresa un valor mayor a cero");
+                        flag = false;
+                    }
+
                     if (flag){
                         if(consultarPresupuestoid().getCantidad() - Double.parseDouble(mTotal.getText().toString()) < 0){
                             mostrarToast("Tu presupuesto no es suficiente");
@@ -190,9 +198,8 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
         mButonCancelar.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  limpiarCampos();
                   Intent intent;
-                  intent = new Intent(ActivityGastos.this, MainActivity.class);
+                  intent = new Intent(getApplicationContext(), MainActivity.class);
                   startActivity(intent);
               }
           }
