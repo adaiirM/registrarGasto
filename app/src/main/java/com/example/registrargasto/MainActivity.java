@@ -1,8 +1,12 @@
 package com.example.registrargasto;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
+import androidx.leanback.app.OnboardingSupportFragment;
+
 import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -10,6 +14,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.registrargasto.adapter.AdapterFragment;
 import com.example.registrargasto.util.ZoomOutPageTransformer;
 import com.example.registrargasto.view.fragment.AdeudoFragment;
@@ -31,6 +39,18 @@ public class MainActivity extends FragmentActivity  {
 
         super.onCreate(saveIndtance);
         setContentView(R.layout.activity_main);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyP", MODE_PRIVATE);
+        boolean isFirstStart = sharedPreferences.getBoolean("isFirstStart", true);
+        // Check if we need to display our OnboardingSupportFragment
+        if(isFirstStart){
+            Intent intent = new Intent(this, TutorialActivity.class);
+            startActivity(intent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isFirstStart", false);
+            editor.apply();
+        }
 
 
         mViewPager2=findViewById(R.id.pager);

@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, IDAOAdeudo, IAdeudoFragmentView {
 
     private EditText mfechaGasto;
-    private static Spinner spinnerTipoGasto;
+    private Spinner spinnerTipoGasto;
     private EditText mNombreAdeudo;
     private EditText mPrecio;
     private EditText mLugar;
@@ -91,7 +91,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
 
     public void adapterTipoGasto() {
         listaTipoGasto = consultarTipoGasto();
-        listTipoGastos=new ArrayList<String>();
+        listTipoGastos=new ArrayList<>();
         listTipoGastos.add("Seleccione");
         for (TipoGastoDTO tipo:listaTipoGasto) {
             listTipoGastos.add(tipo.getNombreTipoGas());
@@ -139,13 +139,19 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
                         mostrarToast("Nombre de gasto: Ingresa solo letras");
                         flag = false;
                     }
+
+                    if (Double.parseDouble(mPrecio.getText().toString()) == 0 || Double.parseDouble(mCantidad.getText().toString()) == 0){
+                        mostrarToast("Ingresa un valor mayor a cero");
+                        flag = false;
+                    }
+
                     if(!verificarFecha()){
                         flag = false;
                     }
                     if (flag){
-                        String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
-                        AdeudoDTO adeudoDto = new AdeudoDTO(mNombreAdeudo.getText().toString(),mLugar.getText().toString(),Double.valueOf(mPrecio.getText().toString()),
-                                Integer.valueOf(mCantidad.getText().toString()), Double.valueOf(mPrecio.getText().toString()) * Integer.valueOf(mCantidad.getText().toString()),
+                        //String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
+                        AdeudoDTO adeudoDto = new AdeudoDTO(mNombreAdeudo.getText().toString(),mLugar.getText().toString(),Double.parseDouble(mPrecio.getText().toString()),
+                                Integer.parseInt(mCantidad.getText().toString()), Double.parseDouble(mPrecio.getText().toString()) * Integer.parseInt(mCantidad.getText().toString()),
                                 mfechaGasto.getText().toString(),idTipoGasto());
                         // mostrarToast(adeudoDto.toString());
                         long idAdeudo = registarNuevoAdeudo(adeudoDto);
@@ -183,7 +189,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
     }
 
     public int idTipoGasto(){
-        int idTipo=0;
+        int idTipo;
         String selec=spinnerTipoGasto.getSelectedItem().toString();
         switch (selec){
             case "Producto":
@@ -205,11 +211,7 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
     public static boolean verificarTexto(String cadena){
         Pattern patron=Pattern.compile("[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+");
         Matcher comprobacion = patron.matcher(cadena);
-        if (comprobacion.matches()){
-            return true;
-        }else{
-            return false;
-        }
+        return comprobacion.matches();
     }
     public boolean verificarFecha(){
         ValidacionesFechas validacionesFechas=new ValidacionesFechas();
@@ -278,8 +280,8 @@ public class AdeudoActivity extends AppCompatActivity implements IDAOTipoGasto, 
 
     private void verficarCampos(){
         if(!mCantidad.getText().toString().equals("") && !mPrecio.getText().toString().equals("")){
-            mTotal.setText(""+Double.parseDouble(mPrecio.getText().toString()) *
-                    Double.parseDouble(mCantidad.getText().toString()));
+            mTotal.setText(String.valueOf(Double.parseDouble(mPrecio.getText().toString()) *
+                    Double.parseDouble(mCantidad.getText().toString())));
         }else {
             mTotal.setText("0");
         }
