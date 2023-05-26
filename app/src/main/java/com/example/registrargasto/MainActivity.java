@@ -1,22 +1,15 @@
 package com.example.registrargasto;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import androidx.leanback.app.OnboardingSupportFragment;
-
-import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.registrargasto.adapter.AdapterFragment;
 import com.example.registrargasto.util.ZoomOutPageTransformer;
@@ -24,6 +17,7 @@ import com.example.registrargasto.view.fragment.AdeudoFragment;
 import com.example.registrargasto.view.fragment.GastoFragment;
 import com.example.registrargasto.view.fragment.InicioFragment;
 import com.example.registrargasto.view.fragment.PresupuestoFragment;
+import com.example.registrargasto.viewTutorial.TutorialActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
