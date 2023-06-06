@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAOTipoGasto, IGastoActivityView, IPresupuestoactivityGasto {
 
     private EditText mfechaGasto;
-    private static Spinner mTipoGasto;
+    private Spinner mTipoGasto;
     private EditText mNombreGasto;
     private EditText mPrecio;
     private EditText mLugar;
@@ -44,19 +44,10 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
     private EditText mTotal;
     private Button mButonGuardar;
     private Button mButonCancelar;
-    private EditText itemTipoGasto;
     private AdapterListaGastos adapterListaGastos;
 
     private ArrayList<String>listTipoGastos;
     private ArrayList<TipoGastoDTO> listaTipoGasto;
-
-    private String[] tipoGasto;
-    private long id;
-    private String tipoGastos;
-    private String fechaActual;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +80,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
     public void adapterTipoGasto() {
         listaTipoGasto = consultarTipoGasto();
-        listTipoGastos=new ArrayList<String>();
+        listTipoGastos = new ArrayList<>();
         listTipoGastos.add("Seleccione");
         for (TipoGastoDTO tipo:listaTipoGasto) {
             listTipoGastos.add(tipo.getNombreTipoGas());
@@ -102,7 +93,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
 
     public int idTipoGasto(){
-        int idTipo=0;
+        int idTipo;
         String selec=mTipoGasto.getSelectedItem().toString();
         switch (selec){
             case "Producto":
@@ -157,10 +148,10 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                         if(consultarPresupuestoid().getCantidad() - Double.parseDouble(mTotal.getText().toString()) < 0){
                             mostrarToast("Tu presupuesto no es suficiente");
                         }else {
-                            String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
+                            //String fechaActual = twoDigits(DatePickerFragment.day) + "-" + twoDigits(DatePickerFragment.month + 1) + "-" + DatePickerFragment.year;
                             GastoDTO adeudoDto = new GastoDTO(mNombreGasto.getText().toString(), mfechaGasto.getText().toString(),
-                                    mLugar.getText().toString(), Double.valueOf(mPrecio.getText().toString()), Integer.valueOf(mCantidad.getText().toString()),
-                                    Double.valueOf(mPrecio.getText().toString()) * Integer.valueOf(mCantidad.getText().toString()), idTipoGasto());
+                                    mLugar.getText().toString(), Double.valueOf(mPrecio.getText().toString()), Integer.parseInt(mCantidad.getText().toString()),
+                                    Double.parseDouble(mPrecio.getText().toString()) * Integer.parseInt(mCantidad.getText().toString()), idTipoGasto());
                             // mostrarToast(adeudoDto.toString());
                             long idAdeudo = registrarNuevoAdeudo(adeudoDto);
                             if (idAdeudo > 0) {
@@ -177,7 +168,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
                             adapterListaGastos.notifyItemChanged(consultarGastos().size());
 
                             if(consultarPresupuestoid().getCantidad()>0.0){
-                                restarPresupuesto(Double.valueOf(mTotal.getText().toString()));
+                                restarPresupuesto(Double.parseDouble(mTotal.getText().toString()));
                             }
 
                             limpiarCampos();
@@ -223,8 +214,8 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
     private void verficarCampos(){
         if(!mCantidad.getText().toString().equals("") && !mPrecio.getText().toString().equals("")){
-            mTotal.setText(""+Double.parseDouble(mPrecio.getText().toString()) *
-                    Double.parseDouble(mCantidad.getText().toString()));
+            mTotal.setText(String.valueOf(Double.parseDouble(mPrecio.getText().toString()) *
+                    Double.parseDouble(mCantidad.getText().toString())));
         }else {
             mTotal.setText("0");
         }
@@ -311,10 +302,7 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
     public static boolean verificarTexto(String cadena){
         String expReg = "[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+";
-        if (cadena.matches(expReg)){
-            return true;
-        }else
-            return false;
+        return cadena.matches(expReg);
     }
 
 

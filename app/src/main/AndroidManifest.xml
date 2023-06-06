@@ -23,9 +23,15 @@
         android:theme="@style/Theme.RegistrarGasto"
         tools:targetApi="31">
         <activity
+            android:name=".TutorialInicioActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.activity.ModificarPresupuestoActivity"
-            android:exported="false" />
-      
+            android:exported="false" />
         <activity
             android:name=".TutorialActivity"
             android:exported="false"
@@ -34,7 +40,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-      
         <activity
             android:name=".view.activity.PresupuestoActivity"
             android:exported="false">

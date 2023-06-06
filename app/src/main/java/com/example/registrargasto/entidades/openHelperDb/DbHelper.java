@@ -40,5 +40,6 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DBQueryTipoGasto.ELIMINAR_TABLA_TIPO_GASTO);
         sqLiteDatabase.execSQL(DBQueryAdeudo.ELIMINAR_TABLA_ADEUDOS);
         sqLiteDatabase.execSQL(DBQueryPresupuesto.ELIMINAR_TABLA_PRESUPUESTO);
+        onCreate(sqLiteDatabase);
     }
 }
