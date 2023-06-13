@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_500"
-    tools:context=".TutorialInicioActivity">
+    tools:context=".TutorialGastoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayoutCompat2"
@@ -35,7 +35,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/numero1"
+                android:src="@drawable/numero2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:layout_marginStart="5dp"
-                android:text="Inicio"
+                android:text="Gastos"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -71,11 +71,22 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
+        android:id="@+id/btn_atras"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/atras"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/imageView3"
         android:layout_width="272dp"
         android:layout_height="537dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/inicio"
+        android:src="@drawable/gastos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,8 +96,8 @@
         android:id="@+id/btn_siguiente"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/siguiente"
         android:layout_marginEnd="5dp"
+        android:src="@drawable/siguiente"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textSize="17sp"
-        android:text="1. Visualiza tus fechas con pendientes"
+        android:text="1. Busca tus gastos"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -109,7 +120,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2. Modifica tu presupuesto"
+        android:text="2. Ve tus gastos"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:layout_marginTop="5dp"
@@ -120,7 +131,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3. Ve tus ultimos gastos"
+        android:text="3. Agrega gastos nuevos"
         android:textSize="17sp"
         android:textColor="@color/white"
         android:layout_marginTop="5dp"
@@ -128,7 +139,4 @@
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textView6"/>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

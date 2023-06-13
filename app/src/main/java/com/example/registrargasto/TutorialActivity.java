@@ -20,7 +20,7 @@ public class TutorialActivity extends AppCompatActivity {
         btnIr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), TutorialInicioActivity.class);
                 startActivity(i);
             }
         });
