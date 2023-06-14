@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_500"
+    android:background="@color/rosado_gastos"
     tools:context=".TutorialGastoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,6 @@
                 android:textSize="15sp"
                 android:layout_marginStart="5dp"
                 android:text="Gastos"
-                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +61,6 @@
             android:clickable="true"
             android:layout_marginEnd="20dp"
             android:text="@string/skip"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -83,10 +81,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="272dp"
-        android:layout_height="537dp"
+        android:layout_width="292dp"
+        android:layout_height="560dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/gastos"
+        android:src="@drawable/ejemplo_gastos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +109,8 @@
         android:layout_marginTop="10dp"
         android:textSize="17sp"
         android:text="1. Busca tus gastos"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/morado"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -121,7 +120,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2. Ve tus gastos"
-        android:textColor="@color/white"
+        android:textColor="@color/red"
+        android:textStyle="bold"
         android:textSize="17sp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -132,8 +132,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3. Agrega gastos nuevos"
+        android:textColor="@color/azul"
+        android:textStyle="bold"
         android:textSize="17sp"
-        android:textColor="@color/white"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
