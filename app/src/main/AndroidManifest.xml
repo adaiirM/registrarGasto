@@ -23,6 +23,12 @@
         android:theme="@style/Theme.RegistrarGasto"
         tools:targetApi="31">
         <activity
+            android:name=".viewTutorial.TutorialPresupuestoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".viewTutorial.TutorialPendienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".TutorialInicioActivity"
             android:exported="false">
             <meta-data

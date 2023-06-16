@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.registrargasto.viewTutorial.TutorialPendienteActivity;
+
 public class TutorialActivity extends AppCompatActivity {
 
     @SuppressLint("MissingInflatedId")
@@ -20,7 +22,7 @@ public class TutorialActivity extends AppCompatActivity {
         btnIr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), TutorialPendienteActivity.class);
                 startActivity(i);
             }
         });
