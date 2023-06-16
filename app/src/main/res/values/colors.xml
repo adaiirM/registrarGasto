@@ -11,6 +11,7 @@
     <color name="blue_200">#81d4fa</color>
     <color name="blue_500">#03a9f4</color>
     <color name="blue_700">#0288d1</color>
+
     <color name="azulmarino">#0F3888</color>
     <color name="morado">#5723B5</color>
     <color name="blue_800">#81BEF7</color>
@@ -34,4 +35,13 @@
     <color name="sandybrown">#F4A460</color>
     <color name="aqua">#7FFFD4</color>
     <color name="peach">#E6CDED</color>
+
+    <color name="verde_inicio">#C2F0A9</color>
+    <color name="rosado_gastos">#DB9BAE</color>
+    <color name="red">#FE0000</color>
+    <color name="orange">#FE8E00</color>
+
+    <color name="morado">#A330F0</color>
+    <color name="azul">#305FF0</color>
+
 </resources>

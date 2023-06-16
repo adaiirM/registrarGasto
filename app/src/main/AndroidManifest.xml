@@ -23,11 +23,22 @@
         android:theme="@style/Theme.RegistrarGasto"
         tools:targetApi="31">
         <activity
+
             android:name=".viewTutorial.TutorialPresupuestoActivity"
             android:exported="false" />
         <activity
             android:name=".viewTutorial.TutorialPendienteActivity"
             android:exported="false" />
+        <activity
+            android:name=".TutorialInicioActivity"
+
+            android:name=".TutorialGastoActivity"
+
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".TutorialInicioActivity"
             android:exported="false">
@@ -38,14 +49,7 @@
         <activity
             android:name=".view.activity.ModificarPresupuestoActivity"
             android:exported="false" />
-        <activity
-            android:name=".TutorialActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".view.activity.PresupuestoActivity"
             android:exported="false">
@@ -70,6 +74,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.registrargasto.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TutorialActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".MainActivity"

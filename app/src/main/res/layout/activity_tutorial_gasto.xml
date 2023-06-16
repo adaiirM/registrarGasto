@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde_inicio"
-    tools:context=".TutorialInicioActivity">
+    android:background="@color/rosado_gastos"
+    tools:context=".TutorialGastoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayoutCompat2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -34,7 +35,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/numero1"
+                android:src="@drawable/numero2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:layout_marginStart="5dp"
-                android:text="Inicio"
+                android:text="Gastos"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,37 +69,49 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/num1_azul"
+        android:id="@+id/btn_atras"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/atras"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/imageView6"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="110dp"
+        android:src="@drawable/num1_morado"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="220dp"
         android:src="@drawable/num2_rojo"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2" />
 
     <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/num3_black"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/num3_azul"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imageView3" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="292dp"
         android:layout_height="560dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ejemplo__inicio"
+        android:src="@drawable/ejemplo_gastos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +121,8 @@
         android:id="@+id/btn_siguiente"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/siguiente"
         android:layout_marginEnd="5dp"
+        android:src="@drawable/siguiente"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,10 +134,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textStyle="bold"
         android:textSize="17sp"
-        android:text="1. Visualiza tus fechas con pendientes"
-        android:textColor="@color/blue_700"
+        android:text="1. Busca tus gastos"
+        android:textStyle="bold"
+        android:textColor="@color/morado"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -133,9 +146,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2. Cambia tu presupuesto"
-        android:textStyle="bold"
+        android:text="2. Ve tus gastos"
         android:textColor="@color/red"
+        android:textStyle="bold"
         android:textSize="17sp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -145,15 +158,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3. Ve tus ultimos gastos"
-        android:textSize="17sp"
+        android:text="3. Agrega gastos nuevos"
+        android:textColor="@color/azul"
         android:textStyle="bold"
+        android:textSize="17sp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textView6"/>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

@@ -18,8 +18,12 @@
     <string name="cancelar">Cancelar</string>
     <string name="guardar">Guardar</string>
     <string name="lista_de_gastos">Lista de gastos</string>
+
     <string name="numero3"> 3 </string>
     <string name="pendientes"> Pendientes </string>
     <string name="presupuesto"> Presupuesto </string>
+
+
+    <string name="skip"><u>Skip</u></string>
 
 </resources>
