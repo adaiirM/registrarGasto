@@ -30,10 +30,7 @@
             android:name=".viewTutorial.TutorialPendienteActivity"
             android:exported="false" />
         <activity
-            android:name=".TutorialInicioActivity"
-
             android:name=".TutorialGastoActivity"
-
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.registrargasto.viewTutorial.TutorialPendienteActivity;
+
 public class TutorialGastoActivity extends AppCompatActivity {
     private ImageView siguiente;
     private ImageView atras;
@@ -21,7 +23,9 @@ public class TutorialGastoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tutorial_gasto);
         atras = findViewById(R.id.btn_atras);
         skip = findViewById(R.id.btn_skip);
+        siguiente= findViewById(R.id.btn_siguiente);
         btnAtras();
+        btnSiguiente();
         btnSkip();
     }
 
@@ -32,6 +36,16 @@ public class TutorialGastoActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), TutorialInicioActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.right_in, R.anim.right_out);
+            }
+        });
+    }
+    public void btnSiguiente(){
+        siguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), TutorialPendienteActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_out, R.anim.left_in);
             }
         });
     }
