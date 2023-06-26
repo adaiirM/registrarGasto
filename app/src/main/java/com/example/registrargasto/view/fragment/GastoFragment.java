@@ -54,7 +54,7 @@ public class GastoFragment extends Fragment implements IGastoActivityView, IPres
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
-        ArrayList<GastoDTO> gastoDTO=consultarGastos();
+        ArrayList<GastoDTO> gastoDTO = consultarGastos();
 
         try {
             adapterHome = new AdapterListaGastos(gastoDTO);

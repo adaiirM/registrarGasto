@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.registrargasto.viewTutorial.TutorialPendienteActivity;
+import com.example.registrargasto.viewTutorial.TutorialInicioActivity;
 
 public class TutorialActivity extends AppCompatActivity {
 

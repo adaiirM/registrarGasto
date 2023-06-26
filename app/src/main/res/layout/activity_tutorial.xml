@@ -4,18 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TutorialActivity"
+    android:background="@color/verde_inicio"
     android:orientation="vertical"
     android:gravity="center">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icono"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pantalla de prueba para guia rapida"/>
+        android:layout_marginTop="40dp"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:text="¡Bienvenido a GasPer!"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="La aplicacion para gestionar tus Gastos Personales"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="40dp"
+        android:text="Presionar 'ver' para acceder a la APP"/>
     <Button
         android:id="@+id/btnIr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Ir a la aplicacion"/>
+        android:layout_marginTop="10dp"
+        android:text="ver"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

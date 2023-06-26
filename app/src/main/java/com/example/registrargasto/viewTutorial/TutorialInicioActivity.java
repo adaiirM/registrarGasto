@@ -1,4 +1,4 @@
-package com.example.registrargasto;
+package com.example.registrargasto.viewTutorial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,29 +9,32 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TutorialGastoActivity extends AppCompatActivity {
+import com.example.registrargasto.MainActivity;
+import com.example.registrargasto.R;
+
+public class TutorialInicioActivity extends AppCompatActivity {
     private ImageView siguiente;
-    private ImageView atras;
     private TextView skip;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutorial_gasto);
-        atras = findViewById(R.id.btn_atras);
+        setContentView(R.layout.activity_tutorial_inicio);
+        siguiente = findViewById(R.id.btn_siguiente);
         skip = findViewById(R.id.btn_skip);
-        btnAtras();
+        btnSiguiente();
         btnSkip();
     }
 
-    public void btnAtras(){
-        atras.setOnClickListener(new View.OnClickListener() {
+    public void btnSiguiente(){
+        siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), TutorialInicioActivity.class);
+                Intent i = new Intent(getApplicationContext(), TutorialGastoActivity.class);
                 startActivity(i);
-                overridePendingTransition(R.anim.right_in, R.anim.right_out);
+                //Animacion para pasaar de un activity a otro
+                overridePendingTransition(R.anim.left_out, R.anim.left_in);
             }
         });
     }

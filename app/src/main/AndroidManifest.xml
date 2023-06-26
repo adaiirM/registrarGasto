@@ -30,9 +30,8 @@
             android:name=".viewTutorial.TutorialPendienteActivity"
             android:exported="false" />
         <activity
-            android:name=".TutorialInicioActivity"
 
-            android:name=".TutorialGastoActivity"
+            android:name=".viewTutorial.TutorialGastoActivity"
 
             android:exported="false">
             <meta-data
@@ -40,12 +39,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TutorialInicioActivity"
+            android:name=".viewTutorial.TutorialInicioActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+
         <activity
             android:name=".view.activity.ModificarPresupuestoActivity"
             android:exported="false" />
