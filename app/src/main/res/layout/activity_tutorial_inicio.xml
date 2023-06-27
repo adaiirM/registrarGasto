@@ -97,7 +97,6 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:scaleType="fitCenter"
         android:layout_width="285dp"
         android:layout_height="560dp"
         android:layout_marginTop="20dp"

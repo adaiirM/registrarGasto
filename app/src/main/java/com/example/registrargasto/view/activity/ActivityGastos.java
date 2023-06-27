@@ -63,7 +63,6 @@ public class ActivityGastos extends AppCompatActivity implements IDAOGasto, IDAO
 
     }
 
-
     //Se inicializan los controles
     private void inicializarControles() {
         mfechaGasto = findViewById(R.id.edt_fecha_gasto);

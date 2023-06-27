@@ -2,6 +2,7 @@ package com.example.registrargasto.viewTutorial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ public class TutorialPendienteActivity extends AppCompatActivity {
     private ImageView atras;
     private TextView skip;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

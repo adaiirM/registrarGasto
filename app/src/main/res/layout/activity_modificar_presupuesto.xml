@@ -90,7 +90,7 @@
             android:layout_width="121dp"
             android:layout_height="wrap_content"
             android:text="Guardar"
-            android:backgroundTint="@color/guardar"
+            android:backgroundTint="@color/purple_500"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -17,7 +17,6 @@ public class TutorialGastoActivity extends AppCompatActivity {
     private ImageView atras;
     private TextView skip;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
